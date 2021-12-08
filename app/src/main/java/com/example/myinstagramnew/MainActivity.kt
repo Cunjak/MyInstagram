@@ -20,12 +20,14 @@ class MainActivity : AppCompatActivity() {
         when(it.itemId){
             R.id.nav_home -> {
 
-                selectedFragment = HomeFragment()
+                moveToFragment(HomeFragment())
+                return@OnNavigationItemSelectedListener true
             }
             R.id.nav_search ->
             {
 
-                selectedFragment = SearchFragment()
+               moveToFragment(SearchFragment())
+                return@OnNavigationItemSelectedListener true
             }
             R.id.nav_add_post ->
             {
@@ -35,17 +37,17 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_notifications ->
             {
 
-               selectedFragment = NotificationsFragment()
+              moveToFragment(NotificationsFragment())
+                return@OnNavigationItemSelectedListener true
             }
             R.id.nav_profile ->
             {
 
-               selectedFragment = ProfileFragment()
+               moveToFragment(ProfileFragment())
+                return@OnNavigationItemSelectedListener true
             }
         }
-        if (selectedFragment != null){
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment!!).commit()
-        }
+
         false
     }
 
@@ -55,7 +57,10 @@ class MainActivity : AppCompatActivity() {
 
         val nav_view: BottomNavigationView = findViewById(R.id.nav_view)
         nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+        moveToFragment(HomeFragment())
 
+    }
+    private fun moveToFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
     }
 }
